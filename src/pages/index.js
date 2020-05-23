@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react"
 import { Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 import DisplayPicEditor from "react-dp"
 
@@ -32,7 +31,7 @@ const IndexPage = () => {
         }}
       ></input>
       <br />
-      <br/>
+      <br />
       {dpUrl && (
         <DisplayPicEditor
           ref={dpEditor}
@@ -40,18 +39,56 @@ const IndexPage = () => {
           overlay="https://media.kubric.io/api/assetlib/ddab4f1e-12b4-4807-9c54-b94f1f7fd28d.png"
           size={300}
           backgroundColor="#888"
+          enableDownload={false}
+          onExportCallback={({
+            imagePositionX,
+            imagePositionY,
+            imageWidth,
+            imageHeight,
+            size,
+          }) => {
+            const canvas = document.createElement("canvas")
+            var context = canvas.getContext("2d")
+            context.canvas.width = 1000
+            context.canvas.height = 1000
+
+            var baseImage = new Image()
+
+            baseImage.onload = () => {
+              context.drawImage(
+                baseImage,
+                (imagePositionX / size) * 1000,
+                (imagePositionY / size) * 1000,
+                (imageWidth / size) * 1000,
+                (imageHeight / size) * 1000
+              )
+              var overlayImage = new Image()
+
+              overlayImage.onload = () => {
+                context.drawImage(overlayImage, 0, 0, 1000, 1000)
+                const url = canvas.toDataURL("image/png")
+                var download = document.createElement("a")
+                download.href = url.replace("image/png", "image/octet-stream")
+                download.download = "gatsbydays.png"
+                download.click()
+              }
+              overlayImage.setAttribute("crossorigin", "anonymous")
+              overlayImage.setAttribute(
+                "src",
+                "https://media.kubric.io/api/assetlib/ddab4f1e-12b4-4807-9c54-b94f1f7fd28d.png"
+              )
+            }
+
+            baseImage.setAttribute("crossorigin", "anonymous")
+            baseImage.setAttribute("src", dpUrl)
+          }}
         />
       )}
       <br />
       {dpUrl && (
         <button
           onClick={() => {
-            dpEditor.current.saveAsImage(url => {
-              var download = document.createElement("a")
-              download.href = url.replace("image/png", "image/octet-stream")
-              download.download = "gatsbydays.png"
-              download.click()
-            })
+            dpEditor.current.saveAsImage(url => {})
           }}
         >
           Save
