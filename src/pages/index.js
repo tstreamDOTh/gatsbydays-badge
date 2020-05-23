@@ -20,7 +20,7 @@ const IndexPage = () => {
         id="avatar"
         name="avatar"
         accept="image/png, image/jpeg"
-        onInput={event => {
+        onChange={event => {
           var file = event.target.files[0]
           var reader = new FileReader()
           var baseString
@@ -44,10 +44,10 @@ const IndexPage = () => {
         <button
           onClick={() => {
             dpEditor.current.saveAsImage(url => {
-            //   window.location.href = url.replace(
-            //     "image/png",
-            //     "image/octet-stream"
-            //   )
+              //   window.location.href = url.replace(
+              //     "image/png",
+              //     "image/octet-stream"
+              //   )
             })
           }}
         >
