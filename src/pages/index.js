@@ -35,8 +35,8 @@ const IndexPage = () => {
         <DisplayPicEditor
           ref={dpEditor}
           src={dpUrl}
-          overlay="https://media.kubric.io/api/assetlib/2cb2b879-5fc6-471a-a43d-e6b3e385bf47.png"
-          size={500}
+          overlay="https://media.kubric.io/api/assetlib/ddab4f1e-12b4-4807-9c54-b94f1f7fd28d.png"
+          size={400}
           backgroundColor="#888"
         />
       )}
@@ -44,10 +44,10 @@ const IndexPage = () => {
         <button
           onClick={() => {
             dpEditor.current.saveAsImage(url => {
-              //   window.location.href = url.replace(
-              //     "image/png",
-              //     "image/octet-stream"
-              //   )
+                window.location.href = url.replace(
+                  "image/png",
+                  "image/octet-stream"
+                )
             })
           }}
         >
