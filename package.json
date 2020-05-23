@@ -16,7 +16,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-dp": "^0.0.7",
+    "react-dp": "^0.0.8",
     "react-helmet": "^6.0.0"
   },
   "devDependencies": {
